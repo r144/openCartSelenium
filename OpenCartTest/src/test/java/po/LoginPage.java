@@ -26,7 +26,7 @@ public class LoginPage extends BasePage{
 
     public LoginPage(WebDriver driver) {
         super(driver);
-        driver.get("http://192.168.0.101/admin/index.php?route=common/login");
+        driver.get("http://192.168.1.103/admin/index.php?route=common/login");
     }
     
     public DashboardPage doLogin(String user, String pass){
