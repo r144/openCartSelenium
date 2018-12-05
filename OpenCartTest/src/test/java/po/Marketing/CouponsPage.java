@@ -29,6 +29,9 @@ public class CouponsPage extends OpenCartBasePage{
     @FindBy(xpath = "//*[@id=\"content\"]/div[2]/div[1]")
     WebElement deleteFeedBack;
     
+    @FindBy(xpath = "//*[@id=\"content\"]/div[1]/div/div/a")
+    WebElement newButton;
+    
     public String successDeleteMessage = "Success: You have modified coupons! ×".trim().toLowerCase();
     public CouponsPage(WebDriver driver) {
         super(driver);
@@ -45,8 +48,8 @@ public class CouponsPage extends OpenCartBasePage{
         alert.accept();
     }
     
-    public CouponsCreate goToCustomerCreate() {
-        addNew.click();
+    public CouponsCreate goToCouponCreate() {
+        newButton.click();
         return new CouponsCreate(driver);
     }
     

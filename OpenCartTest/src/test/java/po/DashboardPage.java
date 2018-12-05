@@ -13,7 +13,7 @@ import org.openqa.selenium.support.FindBy;
  *
  * @author renat
  */
-public class DashboardPage extends OpenCartBasePage {
+ public class DashboardPage extends OpenCartBasePage {
 
     @FindBy(className = "close")
     WebElement close;

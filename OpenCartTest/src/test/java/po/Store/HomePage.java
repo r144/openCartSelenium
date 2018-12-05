@@ -5,6 +5,7 @@
  */
 package po.Store;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -49,6 +50,8 @@ public class HomePage extends StoreBasePage {
     @FindBy(xpath = "//*[@id=\"top\"]/div/div[2]/ul/li[2]/div/div/a[2]")
     WebElement Login;
     
+    ArrayList tabs = new ArrayList(driver.getWindowHandles());
+
     public String IphoneCompareFeedBack
             = "Success: You have added iPhone to your product comparison! ×"
                     .trim().toLowerCase();
@@ -109,6 +112,12 @@ public class HomePage extends StoreBasePage {
     public ShoppingCart goToShoppingCart(){
         ShoppingCart.click();
         return new ShoppingCart(driver);
+    }
+    
+    public HomePage changeTabs(int pos) {
+        driver.switchTo().window(tabs.get(pos).toString());
+    
+        return this;
     }
     
     

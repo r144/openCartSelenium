@@ -5,6 +5,8 @@
  */
 package po;
 
+import java.util.ArrayList;
+import static org.junit.Assert.assertEquals;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -18,7 +20,7 @@ public class OpenCartBasePage extends BasePage{
     @FindBy(tagName = "h1")
     WebElement title;
     Menu menu;
-    
+
 
     public OpenCartBasePage(WebDriver driver) {
         super(driver);
@@ -33,4 +35,5 @@ public class OpenCartBasePage extends BasePage{
     public String getTitle() {
         return title.getText();
     }
+
 }

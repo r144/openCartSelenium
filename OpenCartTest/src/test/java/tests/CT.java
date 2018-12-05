@@ -19,6 +19,7 @@ import po.Customers.CustomersPage;
 import po.DashboardPage;
 import po.LoginPage;
 import po.CanonEos5dPage;
+import po.Marketing.CouponsCreate;
 import po.Marketing.CouponsPage;
 import po.Marketing.MarketingCreate;
 import po.Marketing.MarketingPage;
@@ -73,7 +74,7 @@ public class CT {
     }
 
     // Criar um rastreamento de mercado 
-//    @Ignore
+    @Ignore
     @Test
     public void CT01() {
         loginpage = new LoginPage(driver);
@@ -87,10 +88,10 @@ public class CT {
         marketing = marketingCreate.setCampaignName("Teste de Market Tracking")
                 .setCampaignDescription("Descrição sobre o rastreamento")
                 .setTrackingCode("5bb2B328b84b9")
-                .setExemples1("http://192.168.0.107/?tracking=5bb28328b84b9")
+                .setExemples1("http://192.168.0.106/?tracking=5bb28328b84b9")
                 .save();
-        assertEquals(
-                marketing.successCreateMessage, marketing.getCreateFeedBack());
+        assertEquals("Success: You have modified marketing tracking! ×".trim().toLowerCase(),
+                marketing.getCreateFeedBack());
 
         marketing.deleteMarketingTracking();
         marketing.getMenu().doLogOut();
@@ -98,7 +99,7 @@ public class CT {
     }
 
     // Cadastrar novo grupo de clientes
-//    @Ignore
+    @Ignore
     @Test
     public void CT02() {
         loginpage = new LoginPage(driver);
@@ -109,13 +110,13 @@ public class CT {
                 .setCustomerGroupName("Teste")
                 .setDescription("Desccrição do grupo")
                 .save();
-        assertEquals(
-                customergroup.successCreateMessage, customergroup.getCreateFeedBack());
+        assertEquals("Success: You have modified customer groups! ×".trim().toLowerCase(),
+                customergroup.getCreateFeedBack());
         customergroup.getMenu().doLogOut();
     }
 //    // Cadastrar novo cliente no grupo criado em CT02 
 
-//    @Ignore
+    @Ignore
     @Test
     public void CT03() {
         loginpage = new LoginPage(driver);
@@ -123,7 +124,7 @@ public class CT {
         CustomersPage customersList = dashboard.getMenu().goToCustomersOpt();
         customersList.deleteAllCustomers();
         CustomersCreate create = customersList.goToCustomerCreate();
-        
+
         CustomersPage customers = create.setFirstName("Xis")
                 .setLastName("Y de Z")
                 .setEmail("xydez@gmail.com")
@@ -131,117 +132,121 @@ public class CT {
                 .setPassword("senhaxyz")
                 .setConfirm("senhaxyz")
                 .save();
-        assertEquals(customers.successCreateMessage, customers.getCreateFeedBack());
+        assertEquals("Success: You have modified customers! ×".trim().toLowerCase(),
+                customers.getCreateFeedBack());
 //        customersList.deleteAllCustomers();
         customers.getMenu().doLogOut();
 
     }
     // Deletar um Cupom de desconto existente no sistema 
 
-//    @Ignore
+    @Ignore
     @Test
     public void CT04() {
         loginpage = new LoginPage(driver);
         DashboardPage dashboard = loginpage.doLogin(user, pass);
         CouponsPage coupons = dashboard.getMenu()
                 .goToCouponsOpt();
+        CouponsCreate couponscreate = coupons.goToCouponCreate();
+        coupons = couponscreate.setCouponName("Discount").setCode("123456").save();
         coupons.deleteMCoupon1();
-        assertEquals(coupons.getDeleteFeedBack(), coupons.successDeleteMessage);
+        assertEquals("Success: You have modified coupons! ×".trim().toLowerCase(),
+                coupons.getDeleteFeedBack());
 
     }
 
 //    // Teste de navegação dos produtos do site 
-//    @Ignore
+    @Ignore
     @Test
     public void CT05() {
         loginpage = new LoginPage(driver);
         DashboardPage dashboard = loginpage.doLogin(user, pass);
         HomePage home = dashboard.getMenu().goToYourStore();
-        ArrayList tabs = new ArrayList(driver.getWindowHandles());
-        driver.switchTo().window(tabs.get(1).toString());
-        assertEquals(driver.getTitle(), home.pageTitle);
+        home.changeTabs(1);
         Desktop dsk = home.getMenu().goToDesktopPc();
         assertEquals(dsk.getTitle(), "PC");
-        
+
         dsk.getMenu().goToDesktopMac();
         assertEquals(dsk.getTitle(), "Mac");
-        
+
         LaptopsAndNotebooks laptops = dsk.getMenu().goToLaptopsAndNotebooksMacs();
         assertEquals(laptops.getTitle(), "Macs");
-        
+
         laptops.getMenu().goToLaptopsAndNotebooksWindows();
         assertEquals(laptops.getTitle(), "Windows");
-        
+
         Components components = laptops.getMenu().goToComponentsMiceAndTrackballs();
         assertEquals(components.getTitle(), "Mice and Trackballs");
-        
+
         components.getMenu().goToComponentsMonitors();
         assertEquals(components.getTitle(), "Monitors");
-        
+
         components.getMenu().goToComponentsPrinters();
         assertEquals(components.getTitle(), "Printers");
-        
+
         components.getMenu().goToComponentsScanners();
         assertEquals(components.getTitle(), "Scanners");
-        
+
         components.getMenu().goToComponentsWebCameras();
         assertEquals(components.getTitle(), "Web Cameras");
-        
+
         Tablets tablets = components.getMenu().goToTablets();
         assertEquals(tablets.getTitle(), "Tablets");
-        
+
         Software software = tablets.getMenu().goToSoftwares();
         assertEquals(software.getTitle(), "Software");
-        
+
         PhonesAndPdas phones = software.getMenu().goToPhonesAndPdas();
         assertEquals(phones.getTitle(), "Phones & PDAs");
-        
+
         Cameras cameras = tablets.getMenu().goToCameras();
         assertEquals(cameras.getTitle(), "Cameras");
-        
+
         Mp3Players mp3 = tablets.getMenu().goToMp3Players();
         assertEquals(mp3.getTitle(), "test 11");
     }
+
     // Comparar 2 produtos, removê-los da tela de comparação, e adicionar um ao carrinho de compras 
-//    @Ignore
+    @Ignore
     @Test
     public void CT06() {
         loginpage = new LoginPage(driver);
         DashboardPage dashboard = loginpage.doLogin(user, pass);
         HomePage home = dashboard.getMenu().goToYourStore();
-        ArrayList tabs = new ArrayList(driver.getWindowHandles());
-        driver.switchTo().window(tabs.get(1).toString());
-        assertEquals(driver.getTitle(), home.pageTitle);
+        home.changeTabs(1);
         home.addIphoneToCompare();
-        assertEquals(home.getFeedBackMessage(), home.IphoneCompareFeedBack);
+        assertEquals(home.getFeedBackMessage(), "Success: You have added iPhone to your product comparison! ×"
+                .trim().toLowerCase());
         home.addCannonToCompare();
         ProductComparison comparison = home.goToComparedItens();
         comparison.removeIphone();
-        assertEquals(comparison.getFeedBackMessage(), comparison.modifiedMessage);
+        assertEquals(comparison.getFeedBackMessage(), "Success: You have modified your product comparison! ×".trim().toLowerCase());
         CanonEos5dPage canonpage = comparison.AddToCartCannon();
         canonpage.SelectRedColor();
         canonpage.AddtoCart();
-        assertEquals(canonpage.getFeedBackMessage(), canonpage.modifiedMessage);
+        assertEquals(canonpage.getFeedBackMessage(), "Success: You have added Canon EOS 5D to your shopping cart! ×"
+                .trim().toLowerCase());
         System.out.println(canonpage.getCartText());
-        assertEquals(canonpage.getCartText(), canonpage.cartTextTest);
+        assertEquals(canonpage.getCartText(), "1 item(s) - $98.00".trim().toLowerCase());
     }
 //    // Adicionar um produto da página principal no carrinho e adicionar a lista de desejo sem estar logado 
-//    @Ignore
+
+    @Ignore
     @Test
     public void CT07() {
         loginpage = new LoginPage(driver);
 
         DashboardPage dashboard = loginpage.doLogin(user, pass);
-        HomePage home = dashboard.getMenu().goToYourStore();
-        ArrayList tabs = new ArrayList(driver.getWindowHandles());
-        driver.switchTo().window(tabs.get(1).toString());
-        assertEquals(driver.getTitle(), home.pageTitle);
+        HomePage home = dashboard.getMenu().goToYourStore();        home.changeTabs(1);
         home.AddMacToCart();
-        assertEquals(home.getFeedBackMessage(), home.MacAddedToCartMessage);
+        assertEquals(home.getFeedBackMessage(), "Success: You have added MacBook to your shopping cart! ×"
+                .trim().toLowerCase());
         home.AddMacToWishList();
-        assertEquals(home.getFeedBackMessage(), home.MacAddedToWishListMessageLogin);
+        assertEquals(home.getFeedBackMessage(), "You must login or create an account to save MacBook to your wish list! ×"
+                .trim().toLowerCase());
     }
 //    // Buscar produtos no site pela barra de pesquisa  
+
 //    @Ignore
     @Test
     public void CT08() {
@@ -249,46 +254,47 @@ public class CT {
 
         DashboardPage dashboard = loginpage.doLogin(user, pass);
         HomePage home = dashboard.getMenu().goToYourStore();
-        ArrayList tabs = new ArrayList(driver.getWindowHandles());
-        driver.switchTo().window(tabs.get(1).toString());
-        SearchPage search =  home.search("Mac");
+        home.changeTabs(1);
+        SearchPage search = home.search("Mac");
         assertTrue(search.ResultsCount() > 0);
-        
+
     }
 //    // Logar com o usuário xydez@gmail.com cadastrado no caso de teste 03 e comprar um produto 
-//    @Ignore
+
+    @Ignore
     @Test
     public void CT09() {
         loginpage = new LoginPage(driver);
 
         DashboardPage dashboard = loginpage.doLogin(user, pass);
         HomePage home = dashboard.getMenu().goToYourStore();
-        ArrayList tabs = new ArrayList(driver.getWindowHandles());
-        driver.switchTo().window(tabs.get(1).toString());
+        home.changeTabs(1);
         AccountLogin accLogin = home.goToLogin();
         LoggedPage logged = accLogin.Login("xydez@gmail.com", "senhaxyz");
         home = logged.goToHome();
         home.AddMacToCart();
-        assertEquals(home.getFeedBackMessage(), home.MacAddedToCartMessage);
+        assertEquals(home.getFeedBackMessage(), "Success: You have added MacBook to your shopping cart! ×"
+                .trim().toLowerCase());
         ShoppingCart shopping = home.goToShoppingCart();
         CheckoutPage checkout = shopping.goToChechout();
         checkout.PreencheForm("X", "Y de Z", "companyX", "rua xyz", "Cornélio Procópio", "86300000", "Brasil", "Paraná");
         checkout.ContinueClick().AgreeClick().ContinuePayment();
         // Não foi possivel continuar o teste pois o metodo de pagamento não 
         //pode ser selecionado mais com estes dados por algum motivo estranho
-        
-//        customersList.deleteAllCustomers();
 
+//        customersList.deleteAllCustomers();
     }
-//    // Visualizar os pedidos de compra feito em CT09, e alterar o nome do cliente da compra. 
+//    // Visualizar os pedidos de compra feito em CT09, e alterar o nome do cliente da compra.
+
+    @Ignore
     @Test
     public void CT10() {
         loginpage = new LoginPage(driver);
 
         DashboardPage dashboard = loginpage.doLogin(user, pass);
-        OrdersPage orders =  dashboard.getMenu().goToOrdersOpt();
-       // Não foi possivel testar esta funcionalidade por falta de comunicação da api. assim, o teste
-        
+        OrdersPage orders = dashboard.getMenu().goToOrdersOpt();
+        // Não foi possivel testar esta funcionalidade por falta de comunicação da api. assim, o teste
+
     }
 
 //    public void testErrorNoData() {
@@ -299,7 +305,6 @@ public class CT {
 //        
 //        assertEquals(5, editOwnerPage.getNumberOfErrors());
 //    }    
-
 //    private void changeTab(WebDriver driver) {
 //
 //    }
