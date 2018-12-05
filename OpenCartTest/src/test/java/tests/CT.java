@@ -88,7 +88,7 @@ public class CT {
         marketing = marketingCreate.setCampaignName("Teste de Market Tracking")
                 .setCampaignDescription("Descrição sobre o rastreamento")
                 .setTrackingCode("5bb2B328b84b9")
-                .setExemples1("http://192.168.0.106/?tracking=5bb28328b84b9")
+                .setExemples1("http://192.168.0.101/?tracking=5bb28328b84b9")
                 .save();
         assertEquals("Success: You have modified marketing tracking! ×".trim().toLowerCase(),
                 marketing.getCreateFeedBack());

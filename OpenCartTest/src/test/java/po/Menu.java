@@ -131,6 +131,8 @@ public class Menu extends BasePage {
 
     public CouponsPage goToCouponsOpt() {
         clickMenuOption(marketingMenu);
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.elementToBeClickable(couponsOpt));
         clickMenuOption(couponsOpt);
         return new CouponsPage(driver);
     }
@@ -142,6 +144,8 @@ public class Menu extends BasePage {
 
     public CustomerGroupsPage goToCustomersGroupOpt() {
         clickMenuOption(customersMenu);
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.elementToBeClickable(customerGroupsOpt));
         clickMenuOption(customerGroupsOpt);
         return new CustomerGroupsPage(driver);
     }
