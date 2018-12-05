@@ -74,7 +74,7 @@ public class CT {
     }
 
     // Criar um rastreamento de mercado 
-    @Ignore
+//    @Ignore
     @Test
     public void CT01() {
         loginpage = new LoginPage(driver);
@@ -99,7 +99,7 @@ public class CT {
     }
 
     // Cadastrar novo grupo de clientes
-    @Ignore
+//    @Ignore
     @Test
     public void CT02() {
         loginpage = new LoginPage(driver);
@@ -116,7 +116,7 @@ public class CT {
     }
 //    // Cadastrar novo cliente no grupo criado em CT02 
 
-    @Ignore
+//    @Ignore
     @Test
     public void CT03() {
         loginpage = new LoginPage(driver);
@@ -140,7 +140,7 @@ public class CT {
     }
     // Deletar um Cupom de desconto existente no sistema 
 
-    @Ignore
+//    @Ignore
     @Test
     public void CT04() {
         loginpage = new LoginPage(driver);
@@ -156,7 +156,7 @@ public class CT {
     }
 
 //    // Teste de navegação dos produtos do site 
-    @Ignore
+//    @Ignore
     @Test
     public void CT05() {
         loginpage = new LoginPage(driver);
@@ -207,7 +207,7 @@ public class CT {
     }
 
     // Comparar 2 produtos, removê-los da tela de comparação, e adicionar um ao carrinho de compras 
-    @Ignore
+//    @Ignore
     @Test
     public void CT06() {
         loginpage = new LoginPage(driver);
@@ -226,12 +226,11 @@ public class CT {
         canonpage.AddtoCart();
         assertEquals(canonpage.getFeedBackMessage(), "Success: You have added Canon EOS 5D to your shopping cart! ×"
                 .trim().toLowerCase());
-        System.out.println(canonpage.getCartText());
         assertEquals(canonpage.getCartText(), "1 item(s) - $98.00".trim().toLowerCase());
     }
 //    // Adicionar um produto da página principal no carrinho e adicionar a lista de desejo sem estar logado 
 
-    @Ignore
+//    @Ignore
     @Test
     public void CT07() {
         loginpage = new LoginPage(driver);
@@ -261,7 +260,7 @@ public class CT {
     }
 //    // Logar com o usuário xydez@gmail.com cadastrado no caso de teste 03 e comprar um produto 
 
-    @Ignore
+//    @Ignore
     @Test
     public void CT09() {
         loginpage = new LoginPage(driver);
@@ -286,7 +285,7 @@ public class CT {
     }
 //    // Visualizar os pedidos de compra feito em CT09, e alterar o nome do cliente da compra.
 
-    @Ignore
+//    @Ignore
     @Test
     public void CT10() {
         loginpage = new LoginPage(driver);
